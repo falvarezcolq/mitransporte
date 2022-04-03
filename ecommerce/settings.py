@@ -31,8 +31,10 @@ INSTALLED_APPS = [
     "ecommerce.apps.checkout",
     "ecommerce.apps.basket",
     "ecommerce.apps.orders",
+    "ecommerce.apps.travel",
     "mptt",
     'django_extensions',
+
 ]
 
 MIDDLEWARE = [

@@ -39,7 +39,7 @@ class CustomAccountManager(BaseUserManager):
 
         return self.create_user(email, username, password, **other_fields)
 
-    def create_user(self, email, name, password, **other_fields):
+    def create_user(self, email, username, password, **other_fields):
 
         if email:
             email = self.normalize_email(email)
@@ -48,7 +48,7 @@ class CustomAccountManager(BaseUserManager):
             raise ValueError(_("Customer Account: You must provide an email address"))
 
         email = self.normalize_email(email)
-        user = self.model(email=email, name=name, **other_fields)
+        user = self.model(email=email, username=username, **other_fields)
         user.set_password(password)
         user.save()
         return user
