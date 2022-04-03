@@ -54,18 +54,29 @@ class CustomAccountManager(BaseUserManager):
 
 
 class Customer(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(_("email address"), unique=True)
-    name = models.CharField(max_length=150)
+
+    TYPE_USER = (
+        ('A', 'Administrador'),
+        ('U', 'Usuario'),
+        ('C', 'Cliente'),
+    )
+
+    email = models.EmailField(_("Correo Electronico"), unique=True)
+    username = models.CharField(max_length=150)
+    first_name =models.CharField(max_length=50,default="",blank=True)
+    last_name =models.CharField(max_length=50,default="",blank=True)
+
     mobile = models.CharField(max_length=20, blank=True)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    type = models.CharField(max_length=1,choices=TYPE_USER,default='U')
 
     objects = CustomAccountManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["name"]
+    REQUIRED_FIELDS = ["username"]
 
     class Meta:
         verbose_name = "Accounts"
@@ -81,7 +92,10 @@ class Customer(AbstractBaseUser, PermissionsMixin):
         )
 
     def __str__(self):
-        return self.name
+        return self.username
+
+    def full_name(self):
+        return "{} {}".format(self.first_name,self.last_name)
 
 
 class Address(models.Model):

@@ -4,11 +4,11 @@
 
 <form class="account-form" action="." method="post">
   {% csrf_token %}
-  <h3 class="mb-2">Create an account</h3>
-  <p class="mb-4">It's free and only takes a minute.</p>
+  <h3 class="mb-2">Crear una nueva cuenta</h3>
+  <p class="mb-4">Es completamente gratis, solo tomara algunos minutos.</p>
 
   {% if form.errors %}
-  <p>Please correct the following errors:</p>
+  <p>Porfavor corrija los siguientes errores:</p>
   {% for field in form %}
   {% if field.errors %}
   <div class="alert alert-primary" role="alert">
@@ -18,11 +18,20 @@
   {% endfor %}
   {% endif %}
 
-  <label>{{ form.user_name.label }}<span class="text-muted small">
-      (Required)</span></label>
-  {{ form.user_name }}
+  <label>{{ form.username.label }}<span class="text-muted small">
+      (Campo Obligatorio)</span></label>
+  {{ form.username }}
+
+  <label>{{ form.first_name.label }}<span class="text-muted small">
+      (Campo Obligatorio)</span></label>
+  {{ form.first_name }}
+
+   <label>{{ form.last_name.label }}<span class="text-muted small">
+      (Campo Obligatorio)</span></label>
+  {{ form.last_name }}
+
   <label>{{ form.email.label}}<span class="text-muted small">
-      (Required)</span></label>
+      (Campo Obligatorio)</span></label>
   {{ form.email }}
   <label>{{ form.password.label}}<span class="text-muted mb-4">
     </span></label>
@@ -31,11 +40,11 @@
   </small>
   {{ form.password }}
   <label>{{ form.password2.label}}<span class="text-muted small">
-      (Required)</span></label>
+      (Campo Obligatorio)</span></label>
   {{ form.password2 }}
-  <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw500 w-100" type="submit">Register</button>
+  <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw500 w-100" type="submit">Registrar</button>
   <p class="text-center">
-    <a href="{% url "account:login" %}">Already have an account?</a>
+    <a href="{% url "account:login" %}">¿Ya tienes una cuenta?</a>
   </p>
 </form>
 
