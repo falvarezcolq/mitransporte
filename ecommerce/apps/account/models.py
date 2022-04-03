@@ -19,11 +19,12 @@ class CustomAccountManager(BaseUserManager):
         except ValidationError:
             raise ValueError(_("You must provide a valid email address"))
 
-    def create_superuser(self, email, name, password, **other_fields):
+    def create_superuser(self, email, username, password, **other_fields):
 
         other_fields.setdefault("is_staff", True)
         other_fields.setdefault("is_superuser", True)
         other_fields.setdefault("is_active", True)
+
 
         if other_fields.get("is_staff") is not True:
             raise ValueError("Superuser must be assigned to is_staff=True")
@@ -36,7 +37,7 @@ class CustomAccountManager(BaseUserManager):
         else:
             raise ValueError(_("Superuser Account: You must provide an email address"))
 
-        return self.create_user(email, name, password, **other_fields)
+        return self.create_user(email, username, password, **other_fields)
 
     def create_user(self, email, name, password, **other_fields):
 
@@ -55,6 +56,12 @@ class CustomAccountManager(BaseUserManager):
 
 class Customer(AbstractBaseUser, PermissionsMixin):
 
+    str_type_user ={
+        'A':'Administrador',
+        'U':'Usuario',
+        'C':'Cliente',
+    }
+
     TYPE_USER = (
         ('A', 'Administrador'),
         ('U', 'Usuario'),
@@ -71,7 +78,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    type = models.CharField(max_length=1,choices=TYPE_USER,default='U')
+    type_user = models.CharField(max_length=1,choices=TYPE_USER,default='U')
 
     objects = CustomAccountManager()
 
@@ -96,6 +103,9 @@ class Customer(AbstractBaseUser, PermissionsMixin):
 
     def full_name(self):
         return "{} {}".format(self.first_name,self.last_name)
+
+    def get_type_user(self):
+        return self.str_type_user[self.type_user]
 
 
 class Address(models.Model):

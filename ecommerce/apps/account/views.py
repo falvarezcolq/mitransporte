@@ -90,7 +90,7 @@ def account_register(request):
             user.email_user(subject=subject, message=message)
             return render(request, "account/registration/register_email_confirm.html", {"form": registerForm})
         else:
-            return HttpResponse("Error handler content", status=400)
+            return render(request, "account/registration/register.html", {"form": registerForm})
     else:
         registerForm = RegistrationForm()
     return render(request, "account/registration/register.html", {"form": registerForm})
@@ -100,14 +100,16 @@ def account_activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = Customer.objects.get(pk=uid)
+
+        if user is not None and account_activation_token.check_token(user, token):
+            user.is_active = True
+            user.save()
+            login(request, user)
+            return redirect("account:dashboard")
+        else:
+            return render(request, "account/registration/activation_invalid.html")
+
     except (TypeError, ValueError, OverflowError, user.DoesNotExist):
-        user = None
-    if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.save()
-        login(request, user)
-        return redirect("account:dashboard")
-    else:
         return render(request, "account/registration/activation_invalid.html")
 
 

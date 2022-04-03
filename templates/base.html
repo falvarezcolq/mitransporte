@@ -70,16 +70,19 @@
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle text-reset" href="#" id="navbarDropdown" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="small text-muted">
+
                       {% if user.is_authenticated %}
+                     <div class="small text-muted">
                         Hola,
-                        {{ request.user.name }}
+                        {{ request.user.full_name }}
+                     </div>
+                      <span class="fs15 fw500">{{ request.user.get_type_user}}</span>
+
                       {% else %}
                       Iniciar sesión
                       {% endif %}
-                    </div>
-                    <span class="fs15 fw500">Bienvenido
-                    </span>
+
+
                     </span>
                   </a>
                   <div class="dropdown-menu rounded-0" aria-labelledby="navbarDropdown">
@@ -146,8 +149,8 @@
           </div>
         </div>
         <form class="d-flex w-100 d-md-none">
-          <input class="form-control me-2" type="search" placeholder="Search products or FAQ" aria-label="Search">
-          <button class="btn btn-outline-secondary" type="submit">Search</button>
+          <input class="form-control me-2" type="search" placeholder="Viajes o Preguntas frecuentes" aria-label="Search">
+          <button class="btn btn-outline-secondary" type="submit">Buscar</button>
         </form>
       </div>
     </nav>

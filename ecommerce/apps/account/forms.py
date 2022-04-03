@@ -75,7 +75,7 @@ class RegistrationForm(forms.ModelForm):
         username = self.cleaned_data['username'].lower()
         r = Customer.objects.filter(username=username)
         if r.count():
-            raise forms.ValidationError("Username already exists")
+            raise forms.ValidationError("Username ya existe")
         return username
 
     def clean_password2(self):
@@ -88,21 +88,19 @@ class RegistrationForm(forms.ModelForm):
         email = self.cleaned_data['email']
         if Customer.objects.filter(email=email).exists():
             raise forms.ValidationError(
-                'Please use another Email, that is already taken')
+                'El correo ya existe, intente con otro o recupere contraseña')
         return email
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update(
             {'class': 'form-control mb-3', 'placeholder': 'Username'})
-
         self.fields['first_name'].widget.attrs.update(
             {'class': 'form-control mb-3', 'placeholder': 'Nombres'})
-
         self.fields['last_name'].widget.attrs.update(
             {'class': 'form-control mb-3', 'placeholder': 'Apellidos'})
         self.fields['email'].widget.attrs.update(
-            {'class': 'form-control mb-3', 'placeholder': 'Correo electronico', 'name': 'email', 'id': 'id_email'})
+            {'class': 'form-control mb-3', 'placeholder': 'Correo electrónico', 'name': 'email', 'id': 'id_email'})
         self.fields['password'].widget.attrs.update(
             {'class': 'form-control mb-3', 'placeholder': 'Contraseña'})
         self.fields['password2'].widget.attrs.update(
