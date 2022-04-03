@@ -62,7 +62,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     )
 
     email = models.EmailField(_("Correo Electronico"), unique=True)
-    username = models.CharField(max_length=150)
+    username = models.CharField(max_length=150, unique=True)
     first_name =models.CharField(max_length=50,default="",blank=True)
     last_name =models.CharField(max_length=50,default="",blank=True)
 
