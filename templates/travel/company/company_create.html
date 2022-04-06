@@ -1,0 +1,42 @@
+{% extends "./base.html" %}
+{% block sub_content %}
+
+<form class="account-form" action="." method="post">
+  {% csrf_token %}
+  <h3 class="mb-2">Crea una nueva empresa de servicios turisticos</h3>
+  <p class="mb-4">Crea tu empresa.</p>
+
+  {% if form.errors %}
+  <p>Porfavor corrija los siguientes errores:</p>
+  {% for field in form %}
+  {% if field.errors %}
+  <div class="alert alert-danger" role="alert">
+    {{ field.label }}: {{ field.errors|striptags }}
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
+  <label>{{ form.name.label }}<span class="text-muted small">
+      (Campo Obligatorio)</span></label>
+  {{ form.name }}
+
+  <label>{{ form.razon_social.label }}<span class="text-muted small">
+      (Campo Obligatorio)</span></label>
+  {{ form.razon_social }}
+
+   <label>{{ form.nit.label }}<span class="text-muted small">
+      (Campo Obligatorio)</span></label>
+  {{ form.nit }}
+
+
+  <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw500 w-100" type="submit">Registrar</button>
+
+</form>
+
+
+<script>
+
+</script>
+
+{% endblock %}

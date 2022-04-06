@@ -12,7 +12,7 @@ class Company(models.Model):
     """
     Company of user
     """
-    user = models.ForeignKey(Customer,on_delete=models.CASCADE,related_name="companies")
+    user = models.OneToOneField(Customer,on_delete=models.CASCADE,related_name="company")
 
     name = models.CharField(verbose_name="Nombre de la empresa",
                             help_text=_("Required and unique"),
@@ -22,7 +22,6 @@ class Company(models.Model):
     razon_social = models.CharField(verbose_name="Nombre de la empresa",
                             help_text=_("Required and unique"),
                             max_length=255,
-                            unique=True,
                             )
     nit = models.CharField(verbose_name="NIT",
                             help_text=_("Required and unique"),

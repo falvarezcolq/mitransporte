@@ -25,8 +25,8 @@
           <a class="navbar-brand d-flex-inline" href="/">
             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-asterisk"
               viewBox="0 0 16 16">
-              <path
-                d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
+<!--              <path-->
+<!--                d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />-->
             </svg>
 
             MiPaseo
@@ -88,10 +88,12 @@
                   <div class="dropdown-menu rounded-0" aria-labelledby="navbarDropdown">
                     <div class="card border-0">
                       <div class="card-body">
-                        <h6 class="card-title">Mi Cuenta</h6>
+                        <h6 class="card-title"></h6>
                         <ul class="list-group list-group-flush dropdown-account-link">
                           {% if user.is_authenticated %}
-                          <a href="{% url "account:dashboard" %}" class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Tu cuenta</a>
+                          <a href="{% url "account:dashboard" %}" class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Mi perfil</a>
+                          <a href="{% url "travel:company_user" %}" class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Mi Empresa</a>
+
                           <a href="#" class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Orders</a>
                           <a href="{% url "account:logout" %}" class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Salir</a>
                           {% else %}
