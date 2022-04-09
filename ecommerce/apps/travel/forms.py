@@ -13,7 +13,8 @@ class CompanyForm(forms.ModelForm):
         label='Nombre de la empresa',
         min_length=4,
         max_length=255,
-        help_text='Required')
+        help_text='Required',
+    )
 
     razon_social = forms.CharField(
         label='Razon Social',
@@ -31,23 +32,31 @@ class CompanyForm(forms.ModelForm):
         model = Company
         fields = ('name','razon_social','nit')
 
-    def clean_name(self):
-        name = self.cleaned_data['name'].upper().strip()
-        r = Company.objects.filter(name=name)
-        if r.count():
-            raise forms.ValidationError("El nombre de la empresa ya existe")
-        return name
-
-    def clean_razon_social(self):
-        razon_social = self.cleaned_data['razon_social'].upper().strip()
-        return razon_social
-
-    def clean_nit(self):
-        nit = self.cleaned_data['nit'].upper().strip()
-        r = Company.objects.filter(nit=nit)
-        if r.count():
-            raise forms.ValidationError("El NIT ya existe.")
-        return nit
+    # def clean_name(self):
+    #     import pdb;pdb.set_trace()
+    #     name = self.cleaned_data['name'].upper().strip()
+    #
+    #     field_name = 'name'
+    #
+    #     if self.instance:
+    #         r = Company.objects.filter({'name':name}).exclude(id=self.instance.id)
+    #     else:
+    #         r = Company.objects.filter(name=name)
+    #
+    #     if r.count() :
+    #         raise forms.ValidationError("El nombre de la empresa ya existe")
+    #     return name
+    #
+    # def clean_razon_social(self):
+    #     razon_social = self.cleaned_data['razon_social'].upper().strip()
+    #     return razon_social
+    #
+    # def clean_nit(self):
+    #     nit = self.cleaned_data['nit'].upper().strip()
+    #     r = Company.objects.filter(nit=nit)
+    #     if r.count():
+    #         raise forms.ValidationError("El NIT ya existe.")
+    #     return nit
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

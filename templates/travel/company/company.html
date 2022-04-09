@@ -17,30 +17,67 @@
   <div class="row g-3">
     {% if not company %}
     <div class="col-12">Usted no tiene una empresa de trasporte turistico.
-        <a class="btn btn-primary" href="{% url 'travel:company' %}">Registrar mi empresa</a>
+        <a class="btn btn-primary" href="{% url 'travel:company_add' %}">Registrar mi empresa</a>
     </div>
       {% else %}
 
       <div  class="row">
           <div class="col-lg-12">
-              <div class="align-center ">
-                  <h1>{{company.name}}</h1>
-                  <br>
-                  <span>
-                      {{company.razon_social}}
-                  </span>
-                  <br>
-                  <span>
-                      {{company.nit}}
-                  </span>
+              <div class="card">
+                  <card class="card-body">
+
+                      <div class="d-flex justify-content-end">
+
+                          <a class="nav-link dropdown-toggle text-reset" href="#" id="companyDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                              <svg class="svg-icon" width="22" height="22" viewBox="0 0 20 20">
+							    <path d="M3.936,7.979c-1.116,0-2.021,0.905-2.021,2.021s0.905,2.021,2.021,2.021S5.957,11.116,5.957,10
+								S5.052,7.979,3.936,7.979z M3.936,11.011c-0.558,0-1.011-0.452-1.011-1.011s0.453-1.011,1.011-1.011S4.946,9.441,4.946,10
+								S4.494,11.011,3.936,11.011z M16.064,7.979c-1.116,0-2.021,0.905-2.021,2.021s0.905,2.021,2.021,2.021s2.021-0.905,2.021-2.021
+								S17.181,7.979,16.064,7.979z M16.064,11.011c-0.559,0-1.011-0.452-1.011-1.011s0.452-1.011,1.011-1.011S17.075,9.441,17.075,10
+								S16.623,11.011,16.064,11.011z M10,7.979c-1.116,0-2.021,0.905-2.021,2.021S8.884,12.021,10,12.021s2.021-0.905,2.021-2.021
+								S11.116,7.979,10,7.979z M10,11.011c-0.558,0-1.011-0.452-1.011-1.011S9.442,8.989,10,8.989S11.011,9.441,11.011,10
+								S10.558,11.011,10,11.011z"></path>
+						    </svg>
+                          </a>
+                           <div class="dropdown-menu rounded-0" aria-labelledby="companyDropdown">
+                            <div class="card border-0">
+                              <div class="card-body">
+                                <ul class="list-group list-group-flush dropdown-account-link">
+                                    <a href="{% url 'travel:company_update' slug=company.id %}" class="text-reset small list-group-item p-0 pb-O border-0 dropdown-account-link">Actualizar</a>
+                                </ul>
+                              </div>
+                            </div>
+                           </div>
+                      </div>
+
+                      <div class="">
+                          <h1>{{company.name}}</h1>
+                          <br>
+                          <span>
+                             Razon Social: {{company.razon_social}}
+                          </span>
+                          <br>
+                          <span>
+                              NIT: {{company.nit}}
+                          </span>
+                      </div>
+
+                       <div class="d-flex justify-content-end">
+                         <svg class="svg-icon" width="100" height="100" viewBox="0 0 20 20">
+                             <path d="M12.173,16.086c0.72,0,1.304-0.584,1.304-1.305V6.089c0-0.72-0.584-1.304-1.304-1.304c-0.721,0-1.305,0.584-1.305,1.304v8.692C10.868,15.502,11.452,16.086,12.173,16.086z M11.738,6.089c0-0.24,0.194-0.435,0.435-0.435s0.435,0.194,0.435,0.435v8.692c0,0.24-0.194,0.436-0.435,0.436s-0.435-0.195-0.435-0.436V6.089zM16.52,16.086c0.72,0,1.304-0.584,1.304-1.305v-11.3c0-0.72-0.584-1.304-1.304-1.304c-0.721,0-1.305,0.584-1.305,1.304v11.3C15.215,15.502,15.799,16.086,16.52,16.086z M16.085,3.481c0-0.24,0.194-0.435,0.435-0.435s0.435,0.195,0.435,0.435v11.3c0,0.24-0.194,0.436-0.435,0.436s-0.435-0.195-0.435-0.436V3.481z M3.48,16.086c0.72,0,1.304-0.584,1.304-1.305v-3.477c0-0.72-0.584-1.304-1.304-1.304c-0.72,0-1.304,0.584-1.304,1.304v3.477C2.176,15.502,2.76,16.086,3.48,16.086z M3.045,11.305c0-0.24,0.194-0.435,0.435-0.435c0.24,0,0.435,0.194,0.435,0.435v3.477c0,0.24-0.195,0.436-0.435,0.436c-0.24,0-0.435-0.195-0.435-0.436V11.305z M18.258,16.955H1.741c-0.24,0-0.435,0.194-0.435,0.435s0.194,0.435,0.435,0.435h16.517c0.24,0,0.435-0.194,0.435-0.435S18.498,16.955,18.258,16.955z M7.826,16.086c0.72,0,1.304-0.584,1.304-1.305V8.696c0-0.72-0.584-1.304-1.304-1.304S6.522,7.977,6.522,8.696v6.085C6.522,15.502,7.106,16.086,7.826,16.086z M7.392,8.696c0-0.239,0.194-0.435,0.435-0.435s0.435,0.195,0.435,0.435v6.085c0,0.24-0.194,0.436-0.435,0.436s-0.435-0.195-0.435-0.436V8.696z"></path>
+                         </svg>
+                      </div>
+
+
+
+                  </card>
               </div>
           </div>
       </div>
 
       <div class="row">
-<!--          <div class="col-12">-->
-<!--              <a href="#">Publicar servicio turistico</a>-->
-<!--          </div>-->
+
 
           <div class="col-lg-3">
               <div class="card">

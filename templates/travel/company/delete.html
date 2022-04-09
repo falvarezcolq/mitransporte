@@ -1,0 +1,21 @@
+{% extends "./base.html" %}
+{% block sub_content %}
+
+<div>
+    {% if company %}
+        <div><h3>Esta seguro de borrar {{company.name}}</h3></div>
+        <form class="account-form" action="{% url 'travel:company_delete' slug=company.id %}" method="post">
+          {% csrf_token %}
+          <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw500 w-100" type="submit">Borrar</button>
+        </form>
+    {% else %}
+        Fue borrado correctamente
+        <a href="{% url 'travel:company_list' %}"> ir a la lista..</a>
+    {% endif %}
+</div>
+
+<script>
+
+</script>
+
+{% endblock %}

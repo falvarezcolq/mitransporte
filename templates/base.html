@@ -23,13 +23,12 @@
       <div class="container-fluid px-md-4">
         <div class="d-flex w-100 navbar-collapse">
           <a class="navbar-brand d-flex-inline" href="/">
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-asterisk"
-              viewBox="0 0 16 16">
-<!--              <path-->
-<!--                d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />-->
-            </svg>
 
+             <svg class="svg-icon" width="28" height="28" viewBox="0 0 20 20">
+               <path d="M10,1.375c-3.17,0-5.75,2.548-5.75,5.682c0,6.685,5.259,11.276,5.483,11.469c0.152,0.132,0.382,0.132,0.534,0c0.224-0.193,5.481-4.784,5.483-11.469C15.75,3.923,13.171,1.375,10,1.375 M10,17.653c-1.064-1.024-4.929-5.127-4.929-10.596c0-2.68,2.212-4.861,4.929-4.861s4.929,2.181,4.929,4.861C14.927,12.518,11.063,16.627,10,17.653 M10,3.839c-1.815,0-3.286,1.47-3.286,3.286s1.47,3.286,3.286,3.286s3.286-1.47,3.286-3.286S11.815,3.839,10,3.839 M10,9.589c-1.359,0-2.464-1.105-2.464-2.464S8.641,4.661,10,4.661s2.464,1.105,2.464,2.464S11.359,9.589,10,9.589"></path>
+             </svg>
             MiPaseo
+
           </a>
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item dropdown">
@@ -93,7 +92,6 @@
                           {% if user.is_authenticated %}
                           <a href="{% url "account:dashboard" %}" class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Mi perfil</a>
                           <a href="{% url "travel:company_user" %}" class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Mi Empresa</a>
-
                           <a href="#" class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Orders</a>
                           <a href="{% url "account:logout" %}" class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Salir</a>
                           {% else %}
@@ -210,6 +208,53 @@
       </div>
     </div>
   </footer>
+
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
+          </div>
+          <div class="modal-body"><p></p></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" id="modal-btn-si">Si</button>
+            <button type="button" class="btn btn-primary" id="modal-btn-no">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+<!--  <button class="btn btn-default" id="btn-confirm" onclick="md(d,'url','mensaje')">Confirm</button>-->
+
+  <script>
+
+    confirmationDelete = d = function(confirm,url){
+      if(confirm){
+        $.post( url , function( data ) {
+         location.reload();
+        }).fail(function(data) {
+         console.log( "Ha ocurrido un error" )
+        });
+      }
+    }
+
+    var md = function(callback,url,msj){
+      $("#mi-modal").modal('show');
+      var modal =  $("#mi-modal");
+      modal.find('.modal-body p').text('¿Esta seguro de borrar?');
+      modal.find('.modal-header h4').html(msj);
+
+      $("#modal-btn-si").on("click", function(){
+        callback(true,url);
+        $("#mi-modal").modal('hide');
+      });
+      $("#modal-btn-no").on("click", function(){
+        callback(false);
+        $("#mi-modal").modal('hide');
+      });
+    };
+
+  </script>
+
 </body>
 
 </html>
