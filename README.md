@@ -22,10 +22,10 @@ python3 -m venv venv
 ```
 
 Hacer correr el programa
-
+desde cmd
 ```
-source venv/scripts/activate
-pip install -r requirements.txt
+venv\scripts\activate.bat
+deac
 python manage.py runserver
 
 ```

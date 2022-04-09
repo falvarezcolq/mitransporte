@@ -15,6 +15,7 @@ def company_user(request):
     return render(request,"travel/company/company.html",{"company":company})
 
 
+
 @login_required
 def company(request):
     if request.method == "POST":
@@ -30,3 +31,5 @@ def company(request):
 
     company_form = CompanyForm()
     return render(request,"travel/company/company_create.html",{"form": company_form})
+
+
