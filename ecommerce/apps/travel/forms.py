@@ -5,7 +5,12 @@ from django.contrib.auth.forms import (
     SetPasswordForm
 )
 
-from .models import Company,Place,Service
+from .models import (
+    Company,
+    Place,
+    Service,
+    Travel
+)
 
 
 class CompanyForm(forms.ModelForm):
@@ -89,4 +94,28 @@ class ServiceForm(forms.ModelForm):
             'price': forms.NumberInput(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
             'description': forms.Textarea(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
             'img_l': forms.FileInput(attrs={'style': 'display: block;', 'class': 'form-control', })
+        }
+import datetime
+
+class TravelForm(forms.ModelForm):
+    # time_departure = forms.DateTimeField(initial=datetime.date.today)
+    class Meta:
+        model = Travel
+        fields = (
+            'service',
+            'time_departure',
+            'time_arrival_destination',
+            'time_departure_return',
+            'time_arrival_return',
+            'travel_type',
+            'passengers_limit',
+        )
+        widgets={
+        'service' : forms.HiddenInput(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+        'time_departure' : forms.DateTimeInput(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+        'time_arrival_destination' : forms.DateTimeInput(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+        'time_departure_return' : forms.DateTimeInput(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+        'time_arrival_return' : forms.DateTimeInput(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+        'travel_type' : forms.Select(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+        'passengers_limit' : forms.NumberInput(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
         }

@@ -69,19 +69,18 @@ class Travel(models.Model):
         ('V','Ida y vuelta'),
     }
 
-    service = models.ForeignKey(Service,on_delete=models.CASCADE)
-    time_departure = models.DateTimeField()
-    time_arrival_destination = models.DateTimeField()
-    time_departure_return = models.DateTimeField(null=True, default=None)
-    time_arrival_return = models.DateTimeField(null=True, default=None)
-    travel_type = models.CharField(max_length=1, choices=TYPE_TRAVEL)
+    service = models.ForeignKey(Service,on_delete=models.CASCADE,verbose_name="service",related_name="travels")
+    time_departure = models.DateTimeField(verbose_name="Fecha y hora de partida")
+    time_arrival_destination = models.DateTimeField(verbose_name="Fecha y hora de llegada al destino")
+    time_departure_return = models.DateTimeField(null=True, default=None,verbose_name="Fecha y hora de inicio de retorno")
+    time_arrival_return = models.DateTimeField(null=True, default=None,verbose_name="Fecha y hora de llegada del retorno")
+    travel_type = models.CharField(max_length=1, choices=TYPE_TRAVEL,verbose_name="")
 
     travelers = models.ManyToManyField(
         Customer,
         through='Traveler',
         through_fields=('travel', 'customer'),
         related_name="travel_registered"
-
     )
     bookers = models.ManyToManyField(
         Customer,

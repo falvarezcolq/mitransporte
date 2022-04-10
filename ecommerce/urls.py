@@ -5,12 +5,13 @@ from django.urls import include, path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", include("ecommerce.apps.travel.urls", namespace="travel")),
     path("", include("ecommerce.apps.catalogue.urls", namespace="catalogue")),
     path("checkout/", include("ecommerce.apps.checkout.urls", namespace="checkout")),
     path("basket/", include("ecommerce.apps.basket.urls", namespace="basket")),
     path("account/", include("ecommerce.apps.account.urls", namespace="account")),
     path("orders/", include("ecommerce.apps.orders.urls", namespace="orders")),
-    path("travel/", include("ecommerce.apps.travel.urls", namespace="travel")),
+
 ]
 
 if settings.DEBUG:

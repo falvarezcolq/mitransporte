@@ -22,7 +22,7 @@ def add(request):
 @login_required
 def detail(request,slug):
     service = get_object_or_404(Service,id=slug)
-    return render(request,"travel/service/detail.html",{"service": service})
+    return render(request,"travel/service/detail.html",{"service": service,"travels":service.travels.all()})
 
 
 

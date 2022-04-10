@@ -1,0 +1,46 @@
+{% extends "../../base.html" %}
+{% load static %}
+{% block title %}Basket Summary{%endblock %}
+{% block content %}
+
+<div class="container">
+  <div class="col-12">
+    <h1 class="h2">Elige tus servicio de transporte, viaje o turismo</h1>
+  </div>
+<!--  <div class="col-12">-->
+<!--    <p>Manage your <b>items</b> in your basket</p>-->
+<!--  </div>-->
+  <hr />
+</div>
+
+<div class="container">
+  <div class="row g-3">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          {% for service in services %}
+          <div class="col">
+              <div class="card card-service">
+                  <div>
+                      <img src="/media/{{service.img_l}}" class="card-img-top" alt="...">
+                      <div class="card-service-title ">
+                          <a href="{% url 'travel:service_detail'  slug=service.id %}"  class="text-light" style="text-decoration:none;">{{service.name}}</a>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      {{service.description}}
+                  </div>
+                    <div class="card-footer">
+                      {{service.price}}$ por persona
+<!--                  <a href="#" class="btn btn-primary btn-small"> Reservar</a>-->
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+</div>
+
+<script>
+
+</script>
+
+{% endblock %}

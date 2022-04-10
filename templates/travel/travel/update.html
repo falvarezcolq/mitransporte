@@ -5,20 +5,28 @@
 <div class="row justify-content-center">
 
     <div class="col-12">
-        <h3 class="mb-2">Actualizar servicio </h3>
-        <p class="mb-4">Actualizar servicio de transporte, viaje y turismo </p>
-    </div>
+        <h3 class="mb-2">Actualizar Viaje  </h3>
 
+    </div>
     <div class="col-6">
-        <form class="account-form" action="{% url 'travel:service_update' slug=service.id %}" method="POST" enctype='multipart/form-data'>
+        <div class="">
+            <h3>Servicio: {{service}}</h3>
+        </div>
+          {%if service.origin%}
+            <div class="">Lugar de Partida: <a href="{% url 'travel:places_detail' slug=service.origin.id %}"> {{service.origin}}</a>
+        {%endif%}
+         {%if service.destination %}
+            <div class="">Lugar de Destino: <a href="{% url 'travel:places_detail' slug=service.destination.id %}"> {{service.destination}}</a>
+        {%endif%}
+
+        <form class="account-form" action="{% url 'travel:travel_update' service_id=service.id slug=travel.id %}" method="POST" enctype='multipart/form-data'>
           {% csrf_token %}
           {% for field in form %}
             <div class="form-group">
-              <label>{{ field.label }}<span class="text-muted small"> (Campo Obligatorio)</span>
-              {% if 'origin' == field.name or   'destination' == field.name %}
-                  <a href="javascript:ow('{% url 'travel:places_add' %}');"> + Agregar lugar </a>{% endif %}
 
-              </label>
+                {% if 'service' != field.name %}
+                    <label>{{ field.label }}<span class="text-muted small"> (Campo Obligatorio)</span></label>
+                {% endif %}
 
               {{ field}}
                {% if field.errors %}
@@ -35,8 +43,9 @@
 
 
 {% block scriptjs %}
-
-<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnpHsl6ujM6EmvFVfoSsdLR6jxbykvw6w&callback=initMap" async defer></script>-->
-<!--<script type="text/javascript" src="/static/maps/index.js"></script>-->
-
+        <script>
+            $(function(){
+              $(".datetime").datetimepicker();
+            });
+        </script>
 {%endblock %}
