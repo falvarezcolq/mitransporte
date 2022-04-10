@@ -1,0 +1,41 @@
+{% extends "./base.html" %}
+{% block sub_content %}
+
+
+<div class="row justify-content-center">
+
+    <div class="col-12">
+        <h3 class="mb-2">Crea un nuevo servicio </h3>
+        <p class="mb-4">Crea un nuevo servicio de transporte, viaje y turismo </p>
+    </div>
+    <div class="col-6">
+        <form class="account-form" action="{% url 'travel:service_add' %}" method="POST" enctype='multipart/form-data'>
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="form-group">
+              <label>{{ field.label }}<span class="text-muted small"> (Campo Obligatorio)</span>
+              {% if 'origin' == field.name or   'destination' == field.name %}
+                  <a href="javascript:ow('{% url 'travel:places_add' %}');"> + Agregar lugar </a>{% endif %}
+
+              </label>
+
+              {{ field}}
+               {% if field.errors %}
+                <small class="alert-danger">{{ field.errors }}</small>
+              {% endif%}
+            </div>
+          {%endfor%}
+          <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw500 w-100" type="submit">Guardar</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block scriptjs %}
+
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnpHsl6ujM6EmvFVfoSsdLR6jxbykvw6w&callback=initMap" async defer></script>-->
+<!--<script type="text/javascript" src="/static/maps/index.js"></script>-->
+
+{%endblock %}

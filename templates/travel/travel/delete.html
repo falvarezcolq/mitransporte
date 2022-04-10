@@ -1,0 +1,21 @@
+{% extends "./base.html" %}
+{% block sub_content %}
+
+<div>
+    {% if travel %}
+        <div><h3>Esta seguro de borrar {{travel.name}}</h3></div>
+        <form class="account-form" action="{% url 'travel:travel_delete' slug=travel.id service_id=service.id %}" method="post">
+          {% csrf_token %}
+          <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw500 w-100" type="submit">Borrar</button>
+        </form>
+    {% else %}
+        Fue borrado correctamente
+
+    {% endif %}
+</div>
+
+<script>
+
+</script>
+
+{% endblock %}

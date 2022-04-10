@@ -1,0 +1,32 @@
+{% extends "./base.html" %}
+{% block sub_content %}
+
+
+<div class="row">
+
+    <div class="col-12">
+        <h3 class="mb-2">{{ place.name}}</h3>
+        <p class="mb-4">{{ place.address }}</p>
+    </div>
+    <div class="col-6">
+        <input type="text" name="latitude" value="{{place.latitude}}" id="id_latitude" hidden>
+        <input type="text" name="longitude" value="{{place.longitude}}" id="id_longitude" hidden>
+        <img src="/media/{{ place.img_l }}" alt="place.name" style="width:100%">
+    </div>
+
+    <div class="col-6">
+        <div style="width:100%;height:100%;">
+            <div id="map" ></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block scriptjs %}
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnpHsl6ujM6EmvFVfoSsdLR6jxbykvw6w&callback=initMap" async defer></script>
+<script type="text/javascript" src="/static/maps/index.js"></script>
+
+{%endblock %}

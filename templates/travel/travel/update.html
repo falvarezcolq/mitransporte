@@ -1,0 +1,51 @@
+{% extends "./base.html" %}
+{% block sub_content %}
+
+
+<div class="row justify-content-center">
+
+    <div class="col-12">
+        <h3 class="mb-2">Actualizar Viaje  </h3>
+
+    </div>
+    <div class="col-6">
+        <div class="">
+            <h3>Servicio: {{service}}</h3>
+        </div>
+          {%if service.origin%}
+            <div class="">Lugar de Partida: <a href="{% url 'travel:places_detail' slug=service.origin.id %}"> {{service.origin}}</a>
+        {%endif%}
+         {%if service.destination %}
+            <div class="">Lugar de Destino: <a href="{% url 'travel:places_detail' slug=service.destination.id %}"> {{service.destination}}</a>
+        {%endif%}
+
+        <form class="account-form" action="{% url 'travel:travel_update' service_id=service.id slug=travel.id %}" method="POST" enctype='multipart/form-data'>
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="form-group">
+
+                {% if 'service' != field.name %}
+                    <label>{{ field.label }}<span class="text-muted small"> (Campo Obligatorio)</span></label>
+                {% endif %}
+
+              {{ field}}
+               {% if field.errors %}
+                <small class="alert-danger">{{ field.errors }}</small>
+              {% endif%}
+            </div>
+          {%endfor%}
+          <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw500 w-100" type="submit">Guardar</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block scriptjs %}
+        <script>
+            $(function(){
+              $(".datetime").datetimepicker();
+            });
+        </script>
+{%endblock %}

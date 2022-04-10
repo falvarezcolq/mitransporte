@@ -37,9 +37,10 @@ class Place(ImageModel):
     """
     Place
     """
-    name = models.CharField(max_length=512)
-    address = models.TextField(max_length=2048)
-    gps = models.CharField(max_length=100)
+    name = models.CharField("Nombre del lugar",max_length=512)
+    address = models.TextField("Dirección",max_length=2048)
+    latitude = models.CharField("Latitud",max_length=50)
+    longitude = models.CharField("Longitude",max_length=50)
 
     def __str__(self):
         return self.name
@@ -48,11 +49,11 @@ class Place(ImageModel):
 class Service(ImageModel):
 
     company = models.ForeignKey(Company,on_delete=models.CASCADE,related_name="services")
-    name = models.CharField(max_length=255)
-    origin = models.ForeignKey(Place,on_delete=models.SET_NULL,null=True,default=None,related_name="service_origin")
-    destination = models.ForeignKey(Place,on_delete=models.SET_NULL,null=True,default=None,related_name="service_destination")
-    price = models.IntegerField()
-    description = models.TextField(max_length=4096)
+    name = models.CharField(verbose_name="Nombre del servicio",max_length=255)
+    origin = models.ForeignKey(Place,on_delete=models.SET_NULL,null=True,default=None,verbose_name="Lugar de partida",related_name="service_origin")
+    destination = models.ForeignKey(Place,on_delete=models.SET_NULL,null=True,default=None,verbose_name="Lugar de Destino",related_name="service_destination")
+    price = models.IntegerField(verbose_name="Costo del viaje por persona (Bolivianos)")
+    description = models.TextField(verbose_name="Descripcion del Servicio",max_length=4096)
 
     def __str__(self):
         return self.name
@@ -68,19 +69,18 @@ class Travel(models.Model):
         ('V','Ida y vuelta'),
     }
 
-    service = models.ForeignKey(Service,on_delete=models.CASCADE)
-    time_departure = models.DateTimeField()
-    time_arrival_destination = models.DateTimeField()
-    time_departure_return = models.DateTimeField(null=True, default=None)
-    time_arrival_return = models.DateTimeField(null=True, default=None)
-    travel_type = models.CharField(max_length=1, choices=TYPE_TRAVEL)
+    service = models.ForeignKey(Service,on_delete=models.CASCADE,verbose_name="service",related_name="travels")
+    time_departure = models.DateTimeField(verbose_name="Fecha y hora de partida")
+    time_arrival_destination = models.DateTimeField(verbose_name="Fecha y hora de llegada al destino")
+    time_departure_return = models.DateTimeField(null=True, default=None,verbose_name="Fecha y hora de inicio de retorno")
+    time_arrival_return = models.DateTimeField(null=True, default=None,verbose_name="Fecha y hora de llegada del retorno")
+    travel_type = models.CharField(max_length=1, choices=TYPE_TRAVEL,verbose_name="")
 
     travelers = models.ManyToManyField(
         Customer,
         through='Traveler',
         through_fields=('travel', 'customer'),
         related_name="travel_registered"
-
     )
     bookers = models.ManyToManyField(
         Customer,

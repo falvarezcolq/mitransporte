@@ -5,7 +5,12 @@ from django.contrib.auth.forms import (
     SetPasswordForm
 )
 
-from .models import Company
+from .models import (
+    Company,
+    Place,
+    Service,
+    Travel
+)
 
 
 class CompanyForm(forms.ModelForm):
@@ -13,7 +18,8 @@ class CompanyForm(forms.ModelForm):
         label='Nombre de la empresa',
         min_length=4,
         max_length=255,
-        help_text='Required')
+        help_text='Required',
+    )
 
     razon_social = forms.CharField(
         label='Razon Social',
@@ -31,23 +37,13 @@ class CompanyForm(forms.ModelForm):
         model = Company
         fields = ('name','razon_social','nit')
 
-    def clean_name(self):
-        name = self.cleaned_data['name'].upper().strip()
-        r = Company.objects.filter(name=name)
-        if r.count():
-            raise forms.ValidationError("El nombre de la empresa ya existe")
-        return name
-
-    def clean_razon_social(self):
-        razon_social = self.cleaned_data['razon_social'].upper().strip()
-        return razon_social
-
-    def clean_nit(self):
-        nit = self.cleaned_data['nit'].upper().strip()
-        r = Company.objects.filter(nit=nit)
-        if r.count():
-            raise forms.ValidationError("El NIT ya existe.")
-        return nit
+    #
+    # def clean_nit(self):
+    #     nit = self.cleaned_data['nit'].upper().strip()
+    #     r = Company.objects.filter(nit=nit)
+    #     if r.count():
+    #         raise forms.ValidationError("El NIT ya existe.")
+    #     return nit
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -57,3 +53,69 @@ class CompanyForm(forms.ModelForm):
             {'class': 'form-control mb-3', 'placeholder': 'Razon Social'})
         self.fields['nit'].widget.attrs.update(
             {'class': 'form-control mb-3', 'placeholder': 'NIT'})
+
+
+class PlaceForm(forms.ModelForm):
+
+    class Meta:
+        model = Place
+        fields = ('name','address','img_l','latitude','longitude',)
+        widgets={
+            'img_l': forms.FileInput(attrs={'style': 'display: block;', 'class': 'form-control', 'required': False, })
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs.update(
+            {'class': 'form-control mb-3', 'placeholder': 'Nombre del lugar'})
+        self.fields['address'].widget.attrs.update(
+            {'class': 'form-control mb-3', 'placeholder': 'Direccion'})
+        self.fields['latitude'].widget.attrs.update(
+            {'class': 'form-control mb-3', 'placeholder': 'GPS' ,'readonly':'true'})
+        self.fields['longitude'].widget.attrs.update(
+            {'class': 'form-control mb-3', 'placeholder': 'GPS','readonly':'true'})
+
+
+class ServiceForm(forms.ModelForm):
+    class Meta:
+        model = Service
+        fields = (
+            'name',
+            'origin',
+            'destination',
+            'price',
+            'description',
+            'img_l',
+        )
+        widgets={
+            'name' : forms.TextInput(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+            'origin': forms.Select(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+            'destination': forms.Select(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+            'price': forms.NumberInput(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+            'description': forms.Textarea(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+            'img_l': forms.FileInput(attrs={'style': 'display: block;', 'class': 'form-control', })
+        }
+import datetime
+
+class TravelForm(forms.ModelForm):
+    # time_departure = forms.DateTimeField(initial=datetime.date.today)
+    class Meta:
+        model = Travel
+        fields = (
+            'service',
+            'time_departure',
+            'time_arrival_destination',
+            'time_departure_return',
+            'time_arrival_return',
+            'travel_type',
+            'passengers_limit',
+        )
+        widgets={
+        'service' : forms.HiddenInput(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+        'time_departure' : forms.DateTimeInput(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+        'time_arrival_destination' : forms.DateTimeInput(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+        'time_departure_return' : forms.DateTimeInput(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+        'time_arrival_return' : forms.DateTimeInput(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+        'travel_type' : forms.Select(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+        'passengers_limit' : forms.NumberInput(attrs={'style': 'display: block;', 'class': 'form-control mb-3' }),
+        }

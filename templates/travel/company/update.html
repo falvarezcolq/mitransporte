@@ -1,0 +1,27 @@
+{% extends "./base.html" %}
+{% block sub_content %}
+  <h3 class="mb-2">Actualizar</h3>
+  <p class="mb-4">Actualizar mi empresa</p>
+
+<form class="account-form" action="{% url 'travel:company_update'  slug=company.id %}" method="post" >
+  {% csrf_token %}
+  {% for field in form %}
+    <div class="form-group">
+      <label>{{ field.label }}<span class="text-muted small"> (Campo Obligatorio)</span></label>
+      {{ field}}
+       {% if field.errors %}
+        <small class="alert-danger">{{ field.errors }}</small>
+      {% endif%}
+    </div>
+  {%endfor%}
+
+  <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw500 w-100" type="submit">Guardar</button>
+
+</form>
+
+
+<script>
+
+</script>
+
+{% endblock %}
