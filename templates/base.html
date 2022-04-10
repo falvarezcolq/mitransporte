@@ -15,6 +15,11 @@
   </script>
   <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
   <link rel="stylesheet" href="{% block stylesheet %}{% endblock %}">
+   <style>
+  	#map {
+        height: 100%;
+        }
+</style>
 </head>
 
 <body>
@@ -37,8 +42,7 @@
                 Todos
                 <i class="ps-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-chevron-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
                   </svg></i>
               </a>
               <ul class="dropdown-menu rounded-0 border-0" aria-labelledby="navbarDropdown">
@@ -92,6 +96,8 @@
                           {% if user.is_authenticated %}
                           <a href="{% url "account:dashboard" %}" class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Mi perfil</a>
                           <a href="{% url "travel:company_user" %}" class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Mi Empresa</a>
+                          <a href="{% url "travel:places_list" %}" class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Lugares</a>
+
                           <a href="#" class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Orders</a>
                           <a href="{% url "account:logout" %}" class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Salir</a>
                           {% else %}
@@ -253,7 +259,14 @@
       });
     };
 
+    var ow = openWindow= function( url ){
+      window.open(url, '_blank', 'location=yes,height=700,width=900,scrollbars=yes,status=yes');
+    }
+
   </script>
+
+
+  {% block scriptjs %} {% endblock %}
 
 </body>
 

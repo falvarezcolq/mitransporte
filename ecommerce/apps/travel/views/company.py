@@ -12,11 +12,10 @@ from django.http import HttpResponse
 def company_user(request):
     try:
         company  = request.user.company
-        return render(request, "travel/company/company.html", {"company": company})
+        return render(request, "travel/company/company.html", {"company": company,"services": company.services.all()})
     except Company.DoesNotExist:
         company = None
-    company = None
-    return render(request, "travel/company/company.html", {"company": False})
+    return render(request, "travel/company/company.html", {"company": False ,"services": [] })
 
 
 @login_required
@@ -51,7 +50,7 @@ def update(request,slug=None):
 @login_required
 def detail(request,slug):
     company = get_object_or_404(Company, id=slug)
-    return render(request, "travel/company/company.html", {"company": company})
+    return render(request, "travel/company/company.html", {"company": company, "services": company.services.all()})
 
 
 @login_required

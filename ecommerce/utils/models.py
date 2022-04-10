@@ -57,7 +57,7 @@ class ImageModel(models.Model):
 
 
     def save(self, *args, **kwargs):
-        # import pdb;pdb.set_trace()
+
 
         imagesave = ImageHelper()
         self.img_l = imagesave.compressImage(self.img_l, 1280, 1280, 50)

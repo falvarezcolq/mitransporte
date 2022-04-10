@@ -128,3 +128,37 @@ SVG Icons - svgicons.sparkk.fr
   stroke: #4691f6;
   stroke-width: 1;
 }
+
+
+.card-service{
+    //border-radius: 1em;
+    //text-align: center;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+
+.card-service div>img{
+
+    //border-radius: 1em  1em 0 0;
+    //box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.card-service-title{
+    position:absolute;
+    margin-top:-30px;
+    left:15px:
+    font-weight:600;
+    font-size:1.5rem;
+    color:#fff;
+    text-shadow: 0px 0px 2px #000;
+    //top:-10px;
+    z-index:20:
+}
+
+
+.reset-a, .reset-a:hover, .reset-a:visited, .reset-a:focus, .reset-a:active  {
+  text-decoration: none;
+  color: inherit;
+  outline: 0;
+  cursor: auto;
+}

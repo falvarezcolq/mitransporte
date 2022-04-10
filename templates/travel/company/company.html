@@ -76,71 +76,57 @@
           </div>
       </div>
 
-      <div class="row">
 
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-          <div class="col-lg-3">
-              <div class="card">
-                  <div class="card-header">
-                      Sorata 3 dias
-                  </div>
-                  <div class="card-body">
-                      Disfrute de un gran viaje a SORATA
-                      Fines de semana Sabado y domingo
-                  </div>
+          {% for service in services %}
+          <div class="col">
+              <div class="card card-service">
+
                   <div>
-                      80$ por persona
+                      <img src="/media/{{service.img_l}}" class="card-img-top" alt="...">
+                      <div class="card-service-title ">
+                          <a href="{% url 'travel:service_detail'  slug=service.id %}"  class="text-light" style="text-decoration:none;">{{service.name}}</a>
+                      </div>
                   </div>
-              </div>
-          </div>
-           <div class="col-lg-3">
-              <div class="card">
-                  <div class="card-header">
-                      Sorata 3 dias
-                  </div>
+
                   <div class="card-body">
-                      Disfrute de un gran viaje a SORATA
-                      Fines de semana Sabado y domingo
+                      {{service.description}}
                   </div>
                     <div class="card-footer">
-                      80$ por persona
-                        <a href="#" class="btn btn-primary btn-small"> Reservar</a>
+                      {{service.price}}$ por persona
+<!--                        <a href="#" class="btn btn-primary btn-small"> Reservar</a>-->
                   </div>
               </div>
           </div>
-           <div class="col-lg-3">
-              <div class="card">
-                  <div class="card-header">
-                      Sorata 3 dias
-                  </div>
-                  <div class="card-body">
-                      Disfrute de un gran viaje a SORATA
-                      Fines de semana Sabado y domingo
-                  </div>
-                   <div class="card-footer">
-                      80$ por persona
-                       <a href="#" class="btn btn-primary btn-small"> Reservar</a>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-3">
-              <div class="card">
-                  <div class="card-header">
-                      Sorata 3 dias
-                  </div>
-                  <div class="card-body">
-                      Disfrute de un gran viaje a SORATA
-                      Fines de semana Sabado y domingo
-                  </div>
-                  <div class="card-footer">
-                      80$ por persona
-                      <a href="#" class="btn btn-primary btn-small"> Reservar</a>
-                  </div>
-              </div>
-          </div>
+          {% endfor %}
 
 
+
+
+
+
+
+          <div class="col">
+            <a href="{% url 'travel:service_add' %}" class="text-reset text-decoration-none" role="button" style="max-width: 540px;">
+              <div class="card mb-3">
+                <div class="row g-0">
+                  <div class="col-2 position-relative">
+                        <span style="font-size:50px; margin-left:20px;">+</span>
+                  </div>
+                  <div class="col-10">
+                    <div class="card-body ps-0 ps-md-1">
+                      <h1 class="h5">Agregar</h1>
+                      <p class="card-text small text-muted">Nuevo servicio de viaje</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
       </div>
+
+
     {% endif %}
 
 
